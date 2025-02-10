@@ -258,4 +258,37 @@ func main() {
 	}
 
 	fmt.Println("File decrypted successfully")
+
+valid, err := validateLicense(filename)
+		if err != nil {
+			fmt.Println("Error validating the license:", err)
+			return
+		}
+
+		if valid {
+			fmt.Println("------------------------------------------")
+			fmt.Println(" License is valid. Access granted.\n", "displaying the contents inside the file:")
+			fmt.Println("-----------------------------------------")
+			err := displaycontentinfile(filename)
+			if err != nil {
+				fmt.Println("error while displaying the file : %w", err)
+			}
+		} else {
+			fmt.Println("License has expired. Access denied !!! .")
+		}
+
+		// file checking for every 24 hours
+		if checkFileExists(filename) {
+			fmt.Println("File exists.")
+		} else {
+
+			fmt.Println("File does not exist.")
+		}
+
+		time.Sleep(10 * time.Second)
+
+	} else {
+		fmt.Println("File decryption stopped")
+	}
+	
 }
